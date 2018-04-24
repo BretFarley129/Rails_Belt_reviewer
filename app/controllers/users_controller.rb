@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   def edit
+    @date = Date.today
     @user = current_user
   end
 
   def update
+    
     @user = User.find(params[:id])
     @user.first_name = params['first_name']
     @user.last_name = params['last_name']

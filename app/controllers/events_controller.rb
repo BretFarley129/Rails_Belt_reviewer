@@ -2,8 +2,8 @@ class EventsController < ApplicationController
   def index
     @date = Date.today
     @user = current_user
-    @local_events = Event.where(state: @user.state)
-    @other_events = Event.where.not(state: @user.state)
+    @local_events = Event.where("date >= ? and state = ?", @date, @user.state)
+    @other_events = Event.where("date >= ? and state != ?", @date, @user.state)
   end
 
   def create
@@ -46,7 +46,7 @@ class EventsController < ApplicationController
     end
   end
 
-  def destroy
+  def unjoin
     @event = Event.find(params[:id])
     @user = current_user
     attend = Attendee.find_by(event: @event, user: @user)
@@ -59,11 +59,25 @@ class EventsController < ApplicationController
     end
   end
 
+  def destroy
+    @event = Event.find(params[:id])
+    @user = current_user
+    if @event.user = @user
+      puts "you can do that"
+        @event.destroy
+    else
+      puts "you cant' do that"
+    end
+    redirect_to :back
+  end
+
   def show
+    @date = Date.today
     @event = Event.find(params[:id])
   end
   
   def edit
+    @date = Date.today
     @event = Event.find(params[:id])
   end
   

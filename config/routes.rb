@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   
   patch 'events/:id' => 'events#join'
   
-  delete 'events/:id' => 'events#destroy'
+  delete 'events/:id' => 'events#unjoin'
+  
+  delete 'events/:id/delete' => 'events#destroy'
   
   get 'events/:id/edit' => 'events#edit'
 

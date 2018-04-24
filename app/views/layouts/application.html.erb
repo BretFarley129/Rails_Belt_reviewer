@@ -7,9 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if current_user %>
-<a href="/session/logout" data-method="delete">Logout</a>
-<%end%>
+
 <%= yield %>
 <% if flash[:errors] %>
   <% flash[:errors].each do |e| %>
